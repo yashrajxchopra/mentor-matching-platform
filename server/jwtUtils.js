@@ -32,4 +32,9 @@ function authenticateToken(req, res, next) {
     });
 }
 
-module.exports = { generateToken, verifyToken, tokenDecoder, authenticateToken };
+function validateString(input) {
+    const regex = /^[a-zA-Z0-9\s,]+$/;
+    return regex.test(input);
+  }
+
+module.exports = { generateToken, verifyToken, tokenDecoder, authenticateToken, validateString };

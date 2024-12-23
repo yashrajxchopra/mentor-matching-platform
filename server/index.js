@@ -1,11 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const { body, validationResult } = require('express-validator');
 const dotenv = require("dotenv");
 const {
   generateToken,
   authenticateToken,
+  validateString
 } = require("./jwtUtils");
 dotenv.config();
 const { Client } = require("pg");
@@ -181,22 +181,21 @@ app.put("/api/edit-profile", authenticateToken, async (req, res) => {
 
 //search user
 app.get("/api/users", authenticateToken, async (req, res) => {
+  const { role, skills, interests } = req.query;
+  if (role && !validateString(role)) {
+    return res.status(400).json({ error: "Invalid role input" });
+  }
+
+  if (skills && !validateString(skills)) {
+    return res.status(400).json({ error: "Invalid skills input" });
+  }
+
+  if (interests && !validateString(interests)) {
+    return res.status(400).json({ error: "Invalid interests input" });
+  }
+
   const userId = req.user.userId;
   try {
-    const { role, skills, interests } = req.query;
-
-    // sql injection check
-    if (role && !validateString(role)) {
-      return res.status(400).json({ error: "Invalid role input" });
-    }
-
-    if (skills && !validateString(skills)) {
-      return res.status(400).json({ error: "Invalid skills input" });
-    }
-
-    if (interests && !validateString(interests)) {
-      return res.status(400).json({ error: "Invalid interests input" });
-    }
 
     let query = `SELECT 
                 users.name,
@@ -215,19 +214,19 @@ app.get("/api/users", authenticateToken, async (req, res) => {
     const params = [userId];
     let paramIndex = 2;
     if (role) {
-      query += ` AND users.role = ${paramIndex}`;
+      query += ` AND users.role = $${paramIndex}`;
       params.push(role);
       paramIndex++;
     }
 
     if (skills) {
-      query += ` AND profile.skills ILIKE ${paramIndex}`;
+      query += ` AND profile.skills ILIKE $${paramIndex}`;
       params.push(`%${skills}%`);
       paramIndex++;
     }
 
     if (interests) {
-      query += ` AND profile.interests ILIKE ${paramIndex}`;
+      query += ` AND profile.interests ILIKE $${paramIndex}`;
       params.push(`%${interests}%`);
       paramIndex++;
     }
