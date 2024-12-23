@@ -215,19 +215,19 @@ app.get("/api/users", authenticateToken, async (req, res) => {
     const params = [userId];
     let paramIndex = 2;
     if (role) {
-      query += ` AND users.role = $${paramIndex}`;
+      query += ` AND users.role = ${paramIndex}`;
       params.push(role);
       paramIndex++;
     }
 
     if (skills) {
-      query += ` AND profile.skills ILIKE $${paramIndex}`;
+      query += ` AND profile.skills ILIKE ${paramIndex}`;
       params.push(`%${skills}%`);
       paramIndex++;
     }
 
     if (interests) {
-      query += ` AND profile.interests ILIKE $${paramIndex}`;
+      query += ` AND profile.interests ILIKE ${paramIndex}`;
       params.push(`%${interests}%`);
       paramIndex++;
     }
