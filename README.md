@@ -47,6 +47,9 @@ https://mentor-matching-platform-delta.vercel.app
    ```bash
    git clone https://github.com/your-username/mentorship-matching-platform.git
    cd mentorship-matching-platform
+   cd client
+   //change API_URL in index.html to http://localhost:5000/
+   cd ..
    //set up environment variable in docker-compose.yml file
    docker-compose up --build
     ```
