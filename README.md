@@ -1,6 +1,7 @@
 # Mentorship Matching Platform
 
-The **Mentorship Matching Platform** is a web application designed to connect mentors and mentees based on their skills and interests. This platform allows users to register, set up their profiles, and find mentorship opportunities.
+The **Mentorship Matching Platform** is a web application designed to connect mentors and mentees based on their skills and interests. This platform allows users to register, set up their profiles, and find mentorship opportunities. Check out deployed application on 
+https://mentor-matching-platform-delta.vercel.app
 
 ## Features
 
@@ -26,12 +27,13 @@ The **Mentorship Matching Platform** is a web application designed to connect me
 ## Technology Stack
 
 ### Frontend
-- **HTML, CSS, and JavaScript (Vanilla)**: No external libraries or frameworks were used for the frontend.
+- **HTML, CSS, JavaScript and Docker**: No external libraries or frameworks were used for the frontend.
 
 ### Backend
 - **Node.js**: Server-side runtime environment.
 - **Express.js**: Web application framework.
 - **PostgreSQL**: Database for storing user profiles, connections, and other data.
+- **Docker**: Docker for easy deployment.
 
 ## Installation
 
