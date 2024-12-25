@@ -353,7 +353,7 @@ app.put("/api/connection-requests/:id", authenticateToken, async (req, res) => {
       if (result.rowCount === 0) {
         return res.status(404).json({ error: "Connection request not found" });
       }
-      await client.query("BEGIN");
+      await client.query("COMMIT");
       return res.json({
         message: `Connection request ${status}.`,
         request: result.rows[0],
